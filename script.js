@@ -33,7 +33,12 @@ function removeR() {
 
 // Remove a column
 function removeC() {
-    alert("Clicked Remove Col"); // Replace this line with your code.
+    if (numCols > 0) {
+        for (let i = 0; i < numRows; i++) {
+            grid.rows[i].deleteCell(-1);
+        }
+        numCols--;
+    }
 }
 
 // Set global variable for selected color
