@@ -15,7 +15,7 @@ function addR() {
 
 // Add a column
 function addC() {
-    if (numCols === 0) {
+    if (numRows === 0) {
         addR();
     } else {
         for (let i = 0; i < numRows; i++) {
@@ -27,7 +27,8 @@ function addC() {
 
 // Remove a row
 function removeR() {
-    alert("Clicked Remove Row"); // Replace this line with your code.
+    grid.deleteRow(-1); 
+    numRows--;
 }
 
 // Remove a column
