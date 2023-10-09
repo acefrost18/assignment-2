@@ -6,13 +6,23 @@ const grid = document.getElementById("grid");
 // Add a row
 function addR() {
     var row = grid.insertRow(numRows);
-    var cell1 = row.insertCell(0);
+    var cell = row.insertCell(0); 
+    for(let i = 0; i < numCols-1; i++) {
+        var cell = row.insertCell(0); 
+    }
     numRows++;
 }
 
 // Add a column
 function addC() {
-    alert("Clicked Add Col"); // Replace this line with your code.
+    if (numCols === 0) {
+        addR();
+    } else {
+        for (let i = 0; i < numRows; i++) {
+            grid.rows[i].insertCell(-1);
+        }
+    }
+    numCols++;
 }
 
 // Remove a row
