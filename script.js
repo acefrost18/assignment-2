@@ -7,8 +7,15 @@ const grid = document.getElementById("grid");
 function addR() {
     var row = grid.insertRow(numRows);
     var cell = row.insertCell(0); 
-    for(let i = 0; i < numCols-1; i++) {
-        var cell = row.insertCell(0); 
+    cell.addEventListener("click", function() {
+        this.style.backgroundColor = colorSelected;
+    });
+    for(let i = 0; i < numCols; i++) {
+        cell = row.insertCell(0); 
+        cell.addEventListener("click", function() {
+            this.style.backgroundColor = colorSelected;
+        });
+
     }
     numRows++;
 }
@@ -17,28 +24,42 @@ function addR() {
 function addC() {
     if (numRows === 0) {
         addR();
-    } else {
+    } 
+    else {
         for (let i = 0; i < numRows; i++) {
-            grid.rows[i].insertCell(-1);
+           var cell = grid.rows[i].insertCell(-1);
+            cell.addEventListener("click", function() {
+                this.style.backgroundColor = colorSelected;
+            });
         }
+        numCols++;
     }
-    numCols++;
 }
 
 // Remove a row
 function removeR() {
-    grid.deleteRow(-1); 
-    numRows--;
+    if(numRows > 0) {
+        grid.deleteRow(-1); 
+        numRows--;
+    }
+    
 }
 
 // Remove a column
 function removeC() {
-    if (numCols > 0) {
+    if(numCols == 0) {
+        while(numRows > 0) {
+            removeR();
+        }
+    }
+    if(numCols > 0) {
         for (let i = 0; i < numRows; i++) {
             grid.rows[i].deleteCell(-1);
         }
         numCols--;
     }
+    
+    
 }
 
 // Set global variable for selected color
@@ -49,15 +70,26 @@ function selectColor(){
 
 // Fill all uncolored cells
 function fillU(){
-    alert("Clicked Fill All Uncolored"); // Replace this line with your code.
+    const cells = grid.querySelectorAll("td"); 
+    cells.forEach(cell => {
+        if(cell.style.backgroundColor === "white" || cell.style.backgroundColor === "") {
+            cell.style.backgroundColor = colorSelected;
+        }
+    });
 }
 
 // Fill all cells
 function fillAll(){
-    alert("Clicked Fill All"); // Replace this line with your code.
+    const cells = grid.querySelectorAll("td");
+    cells.forEach(cell => {
+        cell.style.backgroundColor = colorSelected;
+    });
 }
 
 // Clear all cells
 function clearAll(){
-    alert("Clicked Clear All"); // Replace this line with your code.
+    const cells = grid.querySelectorAll("td");
+    cells.forEach(cell => {
+        cell.style.backgroundColor = "White";
+    });
 }
